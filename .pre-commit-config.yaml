@@ -1,0 +1,14 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-format
+        name: ruff format
+        entry: uvx --no-config ruff format
+        language: system
+        types_or: [python, pyi]
+
+      - id: ruff-fix-only
+        name: ruff fix-only
+        entry: uvx --no-config ruff check --fix-only --exit-zero --quiet
+        language: system
+        types_or: [python, pyi]

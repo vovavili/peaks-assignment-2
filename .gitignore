@@ -1,0 +1,8 @@
+.venv/
+.ruff_cache/
+.pytest_cache/
+.hypothesis/
+__pycache__/
+*.py[cod]
+outputs/
+data/processed/

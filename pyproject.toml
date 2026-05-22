@@ -1,0 +1,135 @@
+[project]
+name = "peaks-takehome"
+version = "0.1.0"
+description = "Report-first analysis for the Peaks senior data scientist take-home assignment."
+requires-python = ">=3.11"
+dependencies = [
+  "altair>=5.0",
+  "lightgbm>=4.6.0",
+  "numpy>=2.2",
+  "polars>=1.30",
+  "pyarrow>=20.0",
+  "reportlab>=4.2",
+  "vl-convert-python>=1.7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "hypothesis>=6.152.9",
+  "marimo>=0.13",
+  "pytest>=8.3",
+  "vegafusion>=2.0.3",
+]
+
+[project.scripts]
+peaks-takehome = "peaks_takehome.pipeline:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/peaks_takehome"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.format]
+docstring-code-line-length = 120
+
+[tool.ruff.lint]
+select = [
+  "F",     # pyflakes
+  "E",     # pycodestyle, errors
+  "W",     # pycodestyle, warnings
+  "I",     # isort
+  "C90",   # McCabe complexity
+  "D",     # pydocstyle, all conventions
+  "A",     # flake8-builtins
+  "DTZ",   # flake8, ban timezone-naive datetimes
+  "BLE",   # flake8-blind-except
+  "B",     # flake8-bugbear
+  "C4",    # flake8-comprehensions
+  "T10",   # flake8-debugger
+  "EXE",   # flake8-executable
+  "LOG",   # flake8-logging
+  "G",     # flake8-logging-format
+  "S",     # flake8-bandit
+  "PT",    # flake8-pytest-style
+  "SIM",   # flake8-simplify
+  "TID",   # flake8-tidy-imports
+  "TC",    # flake8-type-checking
+  "PTH",   # flake8-use-pathlib
+  "ARG",   # flake8-unused-arg
+  "PIE",   # flake8-pie
+  "RSE",   # flake8-raise
+  "RET",   # flake8-return
+  "ICN",   # flake8-import-conventions
+  "SLOT",  # flake8-slots
+  "N",     # pep8-naming
+  "ERA",   # eradicate
+  "UP",    # pyupgrade
+  "FURB",  # refurb
+  "PERF",  # perflint
+  "TRY",   # tryceratops
+  "RUF",   # ruff-specific rules
+  "FA102", # Add "from __future__ import annotations" to every file
+  "PLC",   # Pylint conventions
+  "PLE",   # Pylint errors
+  "PLW",   # Pylint warnings
+
+  # Selected Pylint refactors that are relatively uncontroversial.
+  "PLR01",
+  "PLR02",
+  "PLR04",
+  # "PLR09", # Enforces shorter functions, but longer functions are not necessarily bad when done right
+  "PLR17",
+  # "PLR2004", # Avoids magic values, but enforcing it everywhere can be too demanding
+  "PLR2044",
+  "PLR5",
+  # "PLR6", # Good ruleset, but requires Ruff preview mode
+
+  # Useful rules for third-party libraries
+  "NPY",  # NumPy
+]
+
+ignore = [
+  # Conflicts with another pydocstyle rule
+  "D203",
+  "D213",
+  "TRY003", # Long error messages are not inherently bad; subclassing every exception case is overkill
+  "TRY301", # It can be useful to raise inside a try block while testing
+  # Given two mutually exclusive shell-related options, choose the more secure one
+  "S603",
+  "S606",
+  # Replacing built-in open() with pathlib can be needlessly verbose and slightly less performant
+  "PTH110",
+  "PTH123",
+  "ICN003", # Aliased imports make some Polars and PySpark code more readable, e.g. `from polars import col, lit`
+
+  # Conflicting Ruff formatter rules:
+  # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
+  "W191",
+  "E111",
+  "E114",
+  "E117",
+  "D206",
+  "D300",
+  "COM812",
+  "COM819",
+  "ISC002",
+
+  # Uncomment the following if working with Marimo notebooks
+  "PLC0415",
+  "N803",
+  "N806",
+  "B018", # Ignored in Jupyter notebooks, but not automatically detected for Marimo notebooks yet
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["D104"] # __init__.py files can be empty
+"tests/*.py" = ["S101"] # pytest relies on asserts
