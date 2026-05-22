@@ -18,6 +18,7 @@ The pipeline reads the five source CSV files from `data/` and writes tables, fig
 ## Main Outputs
 
 - `deliverables/Peaks_Take_Home_Report_Typst.pdf` (tracked submission copy)
+- `deliverables/Peaks_Take_Home_Report_Typst.typ` (tracked Typst source for the submission copy)
 - `outputs/Peaks_Take_Home_Report.pdf`
 - `outputs/Peaks_Take_Home_Report_Typst.pdf`
 - `outputs/tables/channel_daily_metrics.csv`
